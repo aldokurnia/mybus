@@ -12,7 +12,7 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 
 
-@MessageDriven(mappedName = "busdatacollector",
+@MessageDriven(mappedName = "jms/BusDataQueue",
 		activationConfig = {
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 		@ActivationConfigProperty(propertyName = "destination", propertyValue = "jms/BusDataQueue") })
@@ -22,10 +22,12 @@ public class BusDataCollectorBean implements MessageListener {
 
     public void onMessage(Message msg) {
         try {
-            String name = msg.getStringProperty("name");
-            logger.info("Received msg " + msg + ", from " + name);
-        } catch (JMSException e) {
-            throw new RuntimeException(e);
+            System.out.println("Received msg: " + msg);
+            logger.info("Received msg: " + msg);
         }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 }
